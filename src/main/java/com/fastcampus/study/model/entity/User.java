@@ -4,10 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.List;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
@@ -17,7 +16,7 @@ import java.time.LocalDateTime;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // for MySQL
     private Long id;
 
     private String account;
@@ -33,4 +32,9 @@ public class User {
     private LocalDateTime updatedAt;
 
     private String updatedBy;
+
+    // User 기준으로 1 : N
+    // LAZY = 지연 로딩, EAGER = 즉시 로딩
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<OrderDetail> orderDetailList;
 }
