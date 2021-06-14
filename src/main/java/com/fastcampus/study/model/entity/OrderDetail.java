@@ -3,17 +3,16 @@ package com.fastcampus.study.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString(exclude = {"user", "item"})   // 연관관계를 가진 객체끼리 상호 참조 하지 않도록 조치
 public class OrderDetail {
 
     @Id
@@ -22,8 +21,11 @@ public class OrderDetail {
 
     private LocalDateTime orderAt;
 
-    private Long userId;
+    // OrderDetail 기준으로 N : 1
+    @ManyToOne
+    private User user;
 
-    private Long itemId;
+    @ManyToOne
+    private Item item;
 
 }

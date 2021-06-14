@@ -4,10 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.List;
+
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
@@ -25,4 +24,16 @@ public class Item {
 
     private String content;
 
+    // 1 : N
+    // LAZY = 지연 로딩, EAGER = 즉시 로딩
+
+    // LAZY = SELECT * FROM item WHERE id = ?;
+
+    // EAGER =
+    // item_id = order_detail.item_id
+    // user_id = order_detail.user_id
+    // WHERE item.id = ?
+    // JOIN item item0_ LEFT OUTER JOIN .......
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
+    private List<OrderDetail> orderDetailList;
 }
