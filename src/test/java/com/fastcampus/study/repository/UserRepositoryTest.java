@@ -18,29 +18,36 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
     @Test
     public void create(){
+        String account = "Test01";
+        String password = "Test01";
+        String status = "REGISTRED";
+        String email = "Test01@gmail.com";
+        String phoneNumber = "010-1111-2222";
+        LocalDateTime registeredAt = LocalDateTime.now();
+        LocalDateTime createdAt = LocalDateTime.now();
+        String createdBy = "AdminServer";
+
         User user = new User();
-        user.setAccount("TestUser03");
-        user.setEmail("TestUser03@gmail.com");
-        user.setPhoneNumber("010-1111-3333");
-        user.setCreatedAt(LocalDateTime.now());
-        user.setCreatedBy("TestUser3");
+        user.setAccount(account);
+        user.setPassword(password);
+        user.setStatus(status);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setRegisteredAt(registeredAt);
+        user.setCreatedAt(createdAt);
+        user.setCreatedBy(createdBy);
 
         User newUser = userRepository.save(user);
-        System.out.println("newUser : " + newUser); // @Data에 toString()이 있어서 바로 JSON으로 볼 수 있음
+
+        Assert.assertNotNull(newUser);
     }
 
     @Test
     @Transactional
     public void read(){
-
-        // SELECT * FROM User WHERE Account = ?;
-        Optional<User> user = userRepository.findByAccount("TestUser03");
-        user.ifPresent(selectUser ->{   // 값이 있을 때만
-            selectUser.getOrderDetailList().stream().forEach(detail ->{
-                System.out.println(detail.getId());
-                System.out.println(detail.getItem());
-            });
-        });
+        User user = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1111-2222");
+        Assert.assertNotNull(user);
+        System.out.println(user);
     }
 
     @Test
