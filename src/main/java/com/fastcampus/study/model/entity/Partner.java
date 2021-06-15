@@ -4,30 +4,30 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class User {
+public class Partner {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // for MySQL
     private Long id;
 
-    private String account;
-
-    private String password;
+    private String name;
 
     private String status;
 
-    private String email;
+    private String address;
 
-    private String phoneNumber;
+    private String callCenter;
+
+    private String partnerNumber;
+
+    private String businessNumber;
+
+    private String ceoName;
 
     private LocalDateTime registeredAt;
 

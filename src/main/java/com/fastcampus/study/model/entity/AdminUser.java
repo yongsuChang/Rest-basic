@@ -4,19 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class User {
+public class AdminUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // for MySQL
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String account;
@@ -25,9 +26,13 @@ public class User {
 
     private String status;
 
-    private String email;
+    private String role;
 
-    private String phoneNumber;
+    private LocalDateTime lastLoginAt;
+
+    private LocalDateTime passwordUpdatedAt;
+
+    private int loginFailCount;
 
     private LocalDateTime registeredAt;
 
