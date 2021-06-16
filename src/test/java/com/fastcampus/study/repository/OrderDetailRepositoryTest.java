@@ -21,11 +21,11 @@ class OrderDetailRepositoryTest extends StudyApplicationTests {
         OrderDetail orderDetail = new OrderDetail();
 
         orderDetail.setStatus("WAITING");
-        orderDetail.setArrival_date(LocalDateTime.now().plusDays(2)); // 현재일자로부터 2일 뒤
+        orderDetail.setArrivalDate(LocalDateTime.now().plusDays(2)); // 현재일자로부터 2일 뒤
         orderDetail.setQuantity(1);
         orderDetail.setTotalPrice(BigDecimal.valueOf(900000));
-        orderDetail.setItemId(1L);
-        orderDetail.setOrderGroupId(1L);
+//        orderDetail.setItemId(1L);
+//        orderDetail.setOrderGroupId(1L);
         orderDetail.setCreatedAt(LocalDateTime.now());
         orderDetail.setCreatedBy("AdminServer");
 
