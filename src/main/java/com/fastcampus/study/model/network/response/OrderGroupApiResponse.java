@@ -1,4 +1,4 @@
-package com.fastcampus.study.model.network.request;
+package com.fastcampus.study.model.network.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderGroupApiRequest {
+public class OrderGroupApiResponse {
 
     private Long id;
 

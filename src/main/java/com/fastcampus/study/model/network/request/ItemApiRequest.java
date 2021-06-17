@@ -12,28 +12,26 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderGroupApiRequest {
+public class ItemApiRequest {
 
     private Long id;
 
     private String status;
 
-    private String orderType;
+    private String name;
 
-    private String revAddress;
+    private String title;
 
-    private String revName;
+    private String content;
 
-    private String paymentType;
+    private BigDecimal price;
 
-    private BigDecimal totalPrice;
+    private String brandName;
 
-    private Integer totalQuantity;
+    private LocalDateTime registeredAt;
 
-    private LocalDateTime orderAt;
+    private LocalDateTime unregisteredAt;
 
-    private LocalDateTime arrivalDate;
-
-    private Long userId;
+    private Long partnerId;
 
 }
