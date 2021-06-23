@@ -2,13 +2,13 @@ package com.fastcampus.study.interfaces;
 
 import com.fastcampus.study.model.network.Header;
 
-public interface CrudInterface {
+public interface CrudInterface<Request, Response> {
 
-    Header create();    // TODO: request object 추가
+    Header<Response> create(Header<Request> request);    // TODO: request object 추가
 
-    Header read(Long id);
+    Header<Response> read(Long id);
 
-    Header update();
+    Header<Response> update(Header<Request> request);
 
     Header delete(Long id);
 
