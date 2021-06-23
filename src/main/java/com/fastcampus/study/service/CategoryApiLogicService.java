@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoryService implements CrudInterface<CategoryApiRequest, CategoryApiResponse> {
+public class CategoryApiLogicService implements CrudInterface<CategoryApiRequest, CategoryApiResponse> {
 
     @Autowired
     private CategoryRepository categoryRepository;
