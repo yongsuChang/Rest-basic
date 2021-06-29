@@ -1,5 +1,6 @@
 package com.fastcampus.study.model.network.response;
 
+import com.fastcampus.study.model.enumclass.ItemStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class ItemApiResponse {
 
     private Long id;
 
-    private String status;
+    private ItemStatusEnum status;
 
     private String name;
 

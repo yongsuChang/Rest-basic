@@ -1,5 +1,6 @@
 package com.fastcampus.study.model.entity;
 
+import com.fastcampus.study.model.enumclass.ItemStatusEnum;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
@@ -28,7 +29,8 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private ItemStatusEnum status;  // 등록 / 해지 / 검수(대기)
 
     private String name;
 

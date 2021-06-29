@@ -1,5 +1,6 @@
 package com.fastcampus.study.model.entity;
 
+import com.fastcampus.study.model.enumclass.UserStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,7 +37,8 @@ public class User {
 
     private String password;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private UserStatusEnum status;  // REGISTERED / UNREGISTERED / WATING /
 
     private String email;
 

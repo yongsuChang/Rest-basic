@@ -1,5 +1,6 @@
 package com.fastcampus.study.model.entity;
 
+import com.fastcampus.study.model.enumclass.OrderTypeEnum;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
@@ -29,13 +30,14 @@ public class OrderGroup {
 
     private String status;
 
-    private String orderType;
+    @Enumerated(EnumType.STRING)
+    private OrderTypeEnum orderType;   // 주문의 형태  - 일괄 / 개별
 
     private String revAddress;
 
     private String revName;
 
-    private String paymentType; // 카드결제 | 현금 결제
+    private String paymentType; // 카드결제 / 현금 결제
 
     private BigDecimal totalPrice;
 
