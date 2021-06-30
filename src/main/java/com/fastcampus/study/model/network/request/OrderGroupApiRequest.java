@@ -1,5 +1,6 @@
 package com.fastcampus.study.model.network.request;
 
+import com.fastcampus.study.model.enumclass.OrderTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +19,7 @@ public class OrderGroupApiRequest {
 
     private String status;
 
-    private String orderType;
+    private OrderTypeEnum orderType;
 
     private String revAddress;
 

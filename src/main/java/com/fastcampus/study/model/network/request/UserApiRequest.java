@@ -1,6 +1,7 @@
 package com.fastcampus.study.model.network.request;
 
 
+import com.fastcampus.study.model.enumclass.UserStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +21,7 @@ public class UserApiRequest {
 
     private String password;
 
-    private String status;
+    private UserStatusEnum status;
 
     private String email;
 

@@ -1,19 +1,13 @@
 package com.fastcampus.study.service;
 
-import com.fastcampus.study.interfaces.CrudInterface;
 import com.fastcampus.study.model.entity.Category;
 import com.fastcampus.study.model.network.Header;
 import com.fastcampus.study.model.network.request.CategoryApiRequest;
 import com.fastcampus.study.model.network.response.CategoryApiResponse;
-import com.fastcampus.study.repository.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoryApiLogicService implements CrudInterface<CategoryApiRequest, CategoryApiResponse> {
-
-    @Autowired
-    private CategoryRepository categoryRepository;
+public class CategoryApiLogicService extends BaseService<CategoryApiRequest, CategoryApiResponse, Category> {
 
     @Override
     public Header<CategoryApiResponse> create(Header<CategoryApiRequest> request) {
@@ -24,13 +18,13 @@ public class CategoryApiLogicService implements CrudInterface<CategoryApiRequest
                 .type(body.getType())
                 .build();
 
-        Category newCategory = categoryRepository.save(category);
+        Category newCategory = baseRepository.save(category);
         return response(newCategory);
     }
 
     @Override
     public Header<CategoryApiResponse> read(Long id) {
-        return categoryRepository.findById(id)
+        return baseRepository.findById(id)
                 .map(category -> response(category))
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
@@ -39,22 +33,22 @@ public class CategoryApiLogicService implements CrudInterface<CategoryApiRequest
     public Header<CategoryApiResponse> update(Header<CategoryApiRequest> request) {
         CategoryApiRequest body = request.getData();
 
-        return categoryRepository.findById(body.getId())
+        return baseRepository.findById(body.getId())
                 .map(category -> {
                     category.setTitle(body.getTitle())
                             .setType(body.getType());
                     return category;
                 })
-                .map(changedCategory -> categoryRepository.save(changedCategory))
+                .map(changedCategory -> baseRepository.save(changedCategory))
                 .map(this::response)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
     @Override
     public Header delete(Long id) {
-        return categoryRepository.findById(id)
+        return baseRepository.findById(id)
                 .map(category -> {
-                    categoryRepository.delete(category);
+                    baseRepository.delete(category);
                     return Header.OK();
                 })
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
