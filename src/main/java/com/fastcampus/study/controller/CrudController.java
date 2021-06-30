@@ -2,11 +2,17 @@ package com.fastcampus.study.controller;
 
 import com.fastcampus.study.interfaces.CrudInterface;
 import com.fastcampus.study.model.network.Header;
+import com.fastcampus.study.service.BaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-public abstract class CrudController<Request, Response> implements CrudInterface<Request, Response> {
+@Component
+public abstract class CrudController<Request, Response, Entity> implements CrudInterface<Request, Response> {
 
-    protected CrudInterface<Request, Response> baseService;
+    @Autowired(required = false)
+    protected BaseService<Request, Response, Entity> baseService;
+
     @Override
     @PostMapping("")
     public Header<Response> create(@RequestBody Header<Request> request) {

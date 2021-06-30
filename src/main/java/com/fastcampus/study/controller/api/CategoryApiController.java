@@ -1,25 +1,14 @@
 package com.fastcampus.study.controller.api;
 
 import com.fastcampus.study.controller.CrudController;
-import com.fastcampus.study.interfaces.CrudInterface;
-import com.fastcampus.study.model.network.Header;
+import com.fastcampus.study.model.entity.Category;
 import com.fastcampus.study.model.network.request.CategoryApiRequest;
 import com.fastcampus.study.model.network.response.CategoryApiResponse;
-import com.fastcampus.study.service.CategoryApiLogicService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.PostConstruct;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/category")
-public class CategoryApiController extends CrudController<CategoryApiRequest, CategoryApiResponse> {
+public class CategoryApiController extends CrudController<CategoryApiRequest, CategoryApiResponse, Category> {
 
-    @Autowired
-    private CategoryApiLogicService categoryApiLogicService;
-
-    @PostConstruct
-    public void init(){
-        this.baseService = categoryApiLogicService;
-    }
 }
