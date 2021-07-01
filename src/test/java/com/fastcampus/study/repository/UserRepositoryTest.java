@@ -2,6 +2,7 @@ package com.fastcampus.study.repository;
 
 import com.fastcampus.study.StudyApplicationTests;
 import com.fastcampus.study.model.entity.User;
+import com.fastcampus.study.model.enumclass.UserStatusEnum;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class UserRepositoryTest extends StudyApplicationTests {
     public void create(){
         String account = "Test03";
         String password = "Test03";
-        String status = "REGISTRED";
+        UserStatusEnum status = UserStatusEnum.REGISTERED;
         String email = "Test01@gmail.com";
         String phoneNumber = "010-1111-3333";
         LocalDateTime registeredAt = LocalDateTime.now();

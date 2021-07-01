@@ -32,13 +32,14 @@ public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResp
                 .build();
 
         Item newItem = baseRepository.save(item);
-        return response(newItem);
+        return Header.OK(response(newItem));
     }
 
     @Override
     public Header<ItemApiResponse> read(Long id) {
         return baseRepository.findById(id)
-                .map(item -> response(item))
+                .map(this::response)
+                .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
@@ -61,7 +62,8 @@ public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResp
                     return entityItem;
                 })
                 .map(changedEntityItem -> baseRepository.save(changedEntityItem))
-                .map(newItem -> response(newItem))
+                .map(this::response)
+                .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
@@ -75,8 +77,9 @@ public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResp
             .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
-    private Header<ItemApiResponse> response(Item item){
-        ItemApiResponse body = ItemApiResponse.builder()
+    @Override
+    protected ItemApiResponse response(Item item){
+        return ItemApiResponse.builder()
                 .id(item.getId())
                 .status(item.getStatus())
                 .name(item.getName())
@@ -88,6 +91,5 @@ public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResp
                 .unregisteredAt(item.getUnregisteredAt())
                 .partnerId(item.getPartner().getId())
                 .build();
-        return Header.OK(body);
     }
 }

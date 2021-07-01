@@ -19,13 +19,14 @@ public class CategoryApiLogicService extends BaseService<CategoryApiRequest, Cat
                 .build();
 
         Category newCategory = baseRepository.save(category);
-        return response(newCategory);
+        return Header.OK(response(newCategory));
     }
 
     @Override
     public Header<CategoryApiResponse> read(Long id) {
         return baseRepository.findById(id)
-                .map(category -> response(category))
+                .map(this::response)
+                .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
@@ -41,6 +42,7 @@ public class CategoryApiLogicService extends BaseService<CategoryApiRequest, Cat
                 })
                 .map(changedCategory -> baseRepository.save(changedCategory))
                 .map(this::response)
+                .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
@@ -54,12 +56,12 @@ public class CategoryApiLogicService extends BaseService<CategoryApiRequest, Cat
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
-    private Header<CategoryApiResponse> response(Category category){
-        CategoryApiResponse body = CategoryApiResponse.builder()
+    @Override
+    protected CategoryApiResponse response(Category category){
+        return CategoryApiResponse.builder()
                 .id(category.getId())
                 .title(category.getTitle())
                 .type(category.getType())
                 .build();
-        return Header.OK(body);
     }
 }

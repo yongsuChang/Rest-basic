@@ -2,6 +2,7 @@ package com.fastcampus.study.repository;
 
 import com.fastcampus.study.StudyApplicationTests;
 import com.fastcampus.study.model.entity.Item;
+import com.fastcampus.study.model.enumclass.ItemStatusEnum;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ class ItemRepositoryTest extends StudyApplicationTests {
     public void create(){
 
         Item item = new Item();
-        item.setStatus("UNREGISTERED");
+        item.setStatus(ItemStatusEnum.UNREGISTERED);
         item.setName("삼성 노트북");
         item.setTitle("삼성 노트북 A100");
         item.setContent("2019년형 노트북 입니다");
