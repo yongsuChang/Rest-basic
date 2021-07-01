@@ -31,13 +31,14 @@ public class OrderDetailApiLogicService extends BaseService<OrderDetailApiReques
                 .build();
 
         OrderDetail newOrderDetail = baseRepository.save(orderDetail);
-        return response(newOrderDetail);
+        return Header.OK(response(newOrderDetail));
     }
 
     @Override
     public Header<OrderDetailApiResponse> read(Long id) {
         return baseRepository.findById(id)
                 .map(this::response)
+                .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
@@ -56,6 +57,7 @@ public class OrderDetailApiLogicService extends BaseService<OrderDetailApiReques
             })
             .map(changedOrderDetail -> baseRepository.save(changedOrderDetail))
             .map(this::response)
+            .map(Header::OK)
             .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
@@ -69,8 +71,9 @@ public class OrderDetailApiLogicService extends BaseService<OrderDetailApiReques
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
-    private Header<OrderDetailApiResponse> response(OrderDetail orderDetail){
-        OrderDetailApiResponse body = OrderDetailApiResponse.builder()
+    @Override
+    protected OrderDetailApiResponse response(OrderDetail orderDetail){
+        return OrderDetailApiResponse.builder()
                 .status(orderDetail.getStatus())
                 .arrivalDate(orderDetail.getArrivalDate())
                 .quantity(orderDetail.getQuantity())
@@ -78,7 +81,5 @@ public class OrderDetailApiLogicService extends BaseService<OrderDetailApiReques
                 .orderGroupId(orderDetail.getOrderGroup().getId())
                 .itemId(orderDetail.getItem().getId())
                 .build();
-
-        return Header.OK(body);
     }
 }

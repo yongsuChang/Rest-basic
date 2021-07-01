@@ -25,13 +25,14 @@ public class AdminUserApiLogicService extends BaseService<AdminUserApiRequest, A
                 .build();
 
         AdminUser newAdminUser = baseRepository.save(adminUser);
-        return response(newAdminUser);
+        return Header.OK(response(newAdminUser));
     }
 
     @Override
     public Header<AdminUserApiResponse> read(Long id) {
         return baseRepository.findById(id)
                 .map(this::response)
+                .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
@@ -50,6 +51,7 @@ public class AdminUserApiLogicService extends BaseService<AdminUserApiRequest, A
                 })
                 .map(changedAdminUser -> baseRepository.save(changedAdminUser))
                 .map(this::response)
+                .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
@@ -63,8 +65,9 @@ public class AdminUserApiLogicService extends BaseService<AdminUserApiRequest, A
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
-    private Header<AdminUserApiResponse> response(AdminUser adminUser){
-        AdminUserApiResponse body = AdminUserApiResponse.builder()
+    @Override
+    protected AdminUserApiResponse response(AdminUser adminUser){
+        return AdminUserApiResponse.builder()
                 .account(adminUser.getAccount())
                 .status(adminUser.getStatus())
                 .role(adminUser.getRole())
@@ -74,6 +77,5 @@ public class AdminUserApiLogicService extends BaseService<AdminUserApiRequest, A
                 .registeredAt(adminUser.getRegisteredAt())
                 .unregisteredAt(adminUser.getUnregisteredAt())
                 .build();
-        return Header.OK(body);
     }
 }

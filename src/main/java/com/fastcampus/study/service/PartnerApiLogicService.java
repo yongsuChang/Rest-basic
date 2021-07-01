@@ -33,13 +33,14 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
                 .build();
 
         Partner newPartner = baseRepository.save(partner);
-        return response(newPartner);
+        return Header.OK(response(newPartner));
     }
 
     @Override
     public Header<PartnerApiResponse> read(Long id) {
         return baseRepository.findById(id)
                 .map(this::response)
+                .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
@@ -64,6 +65,7 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
                 })
                 .map(changedPartner -> baseRepository.save(changedPartner))
                 .map(this::response)
+                .map(Header::OK)
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
@@ -77,8 +79,9 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
-    private Header<PartnerApiResponse> response(Partner partner){
-        PartnerApiResponse partnerApiResponse = PartnerApiResponse.builder()
+    @Override
+    protected PartnerApiResponse response(Partner partner){
+        return PartnerApiResponse.builder()
                 .name(partner.getName())
                 .status(partner.getStatus())
                 .address(partner.getAddress())
@@ -89,6 +92,5 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
                 .registeredAt(partner.getRegisteredAt())
                 .unregisteredAt(partner.getUnregisteredAt())
                 .build();
-        return Header.OK(partnerApiResponse);
     }
 }
